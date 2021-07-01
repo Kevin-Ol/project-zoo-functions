@@ -1,30 +1,16 @@
-/*
-eslint no-unused-vars: [
-  "error",
-  {
-    "args": "none",
-    "vars": "local",
-    "varsIgnorePattern": "data"
-  }
-]
-*/
-
 const data = require('./data');
 
 function getSpeciesByIds(...ids) {
-  // seu código aqui
   const species = ids.map((id) => (data.species.find((speciesId) => speciesId.id === id)));
   return species;
 }
 
 function getAnimalsOlderThan(animal, age) {
-  // seu código aqui
   const animals = data.species.find((species) => species.name === animal);
   return animals.residents.every((resident) => resident.age > age);
 }
 
 function getEmployeeByName(employeeName) {
-  // seu código aqui
   const employeeFirstName = data.employees.find(({ firstName }) => (firstName === employeeName));
   const employeeLastName = data.employees.find(({ lastName }) => (lastName === employeeName));
   if (employeeFirstName === undefined && employeeLastName === undefined) {
@@ -37,22 +23,18 @@ function getEmployeeByName(employeeName) {
 }
 
 function createEmployee(personalInfo, associatedWith) {
-  // seu código aqui
   return { ...personalInfo, ...associatedWith };
 }
 
 function isManager(id) {
-  // seu código aqui
   return data.employees.some(({ managers }) => managers.some((managerId) => managerId === id));
 }
 
 function addEmployee(id, firstName, lastName, managers = [], responsibleFor = []) {
-  // seu código aqui
   data.employees.push({ id, firstName, lastName, managers, responsibleFor });
 }
 
 function countAnimals(species) {
-  // seu código aqui
   const animals = data.species.reduce((acc, { name, residents }) => {
     acc[name] = residents.length; return acc;
   }, {});
@@ -63,7 +45,6 @@ function countAnimals(species) {
 }
 
 function calculateEntry(entrants = 0) {
-  // seu código aqui
   const { Adult: adultPrice, Child: childPrice, Senior: seniorPrice } = data.prices;
   const { Adult = 0, Child = 0, Senior = 0 } = entrants;
   const total = (Adult * adultPrice) + (Child * childPrice) + (Senior * seniorPrice);
@@ -131,10 +112,8 @@ function sortAnimals(map) {
 }
 
 function getAnimalMap(options = 0) {
-  // seu código aqui
   const { includeNames, sorted, sex } = options;
   let animalMap = getAnimalByRegion();
-  // sortAnimals(animalMap)
   if (includeNames === true) {
     animalMap = includeNamesMap();
     if (sex !== undefined) {
@@ -148,7 +127,6 @@ function getAnimalMap(options = 0) {
 }
 
 function getSchedule(dayName) {
-  // seu código aqui
   const days = Object.keys(data.hours);
   const schedule = days.reduce((acc, curr) => {
     acc[curr] = `Open from ${data.hours[curr].open}am until ${data.hours[curr].close - 12}pm`;
@@ -162,7 +140,6 @@ function getSchedule(dayName) {
 }
 
 function getOldestFromFirstSpecies(id) {
-  // seu código aqui
   const speciesId = data.employees.find((employee) => employee.id === id).responsibleFor;
   const animals = getSpeciesByIds(...speciesId);
   const residents = animals.reduce((acc, curr) => {
@@ -174,7 +151,6 @@ function getOldestFromFirstSpecies(id) {
 }
 
 function increasePrices(percentage) {
-  // seu código aqui
   const entrance = Object.keys(data.prices);
   entrance.forEach((type) => {
     data.prices[type] *= ((100 + percentage) / 100);
